@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chamara Creation - Professional Photography, Cinematography & Live Broadcast Services">
+    <meta name="keywords" content="videography, photography, live streaming, broadcast, event coverage, Sri Lanka">
+    <title>Chamara Creation | Professional Photography, Cinematography & Live Broadcasts</title>
+    
+    <!-- Preconnect to CDN for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Google Fonts: Inter (Modern sans-serif) + Roboto Flex (Variable font for TextPressure) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons for social/contact icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon (cinema camera emoji) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+</head>
+<body style="background-color:#2A0A4E;">
+    <!-- Advanced Cinematic Background Layers (bottom → top) -->
+    <!-- Layer 1: Scroll-driven light source (radial spotlight that moves with scroll) -->
+    <div id="bg-light-source" class="bg-layer bg-light-source" aria-hidden="true"></div>
+    
+    <!-- Layer 2: Atmospheric dual-tone gradient overlay (shifts hue per section) -->
+    <div id="bg-atmosphere" class="bg-layer bg-atmosphere" aria-hidden="true"></div>
+    
+    <!-- Layer 3: Lens flare / light leak at section boundaries -->
+    <div id="bg-lens-flare" class="bg-layer bg-lens-flare" aria-hidden="true"></div>
+    
+    <!-- Layer 4: Dynamic vignette (shifts center with scroll) -->
+    <div id="bg-dynamic-vignette" class="bg-layer bg-dynamic-vignette" aria-hidden="true"></div>
+    
+    <!-- Film grain texture overlay -->
+    <div id="film-grain" class="film-grain-overlay" aria-hidden="true"></div>
+    
+    <!-- Liquid Glass SVG Filter -->
+    <svg aria-hidden="true" class="liquid-glass-filter-svg" focusable="false">
+        <defs>
+            <filter color-interpolation-filters="sRGB" height="200%" id="liquid-glass-filter" width="200%" x="-50%" y="-50%">
+                <feTurbulence baseFrequency="0.05 0.05" numOctaves="1" result="turbulence" seed="1" type="fractalNoise"/>
+                <feGaussianBlur in="turbulence" result="blurredNoise" stdDeviation="2"/>
+                <feDisplacementMap in="SourceGraphic" in2="blurredNoise" result="displaced" scale="30" xChannelSelector="R" yChannelSelector="B"/>
+                <feGaussianBlur in="displaced" result="finalBlur" stdDeviation="4"/>
+                <feComposite in="finalBlur" in2="finalBlur" operator="over"/>
+            </filter>
+        </defs>
+    </svg>
+    
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+    
+    <!-- Navigation Bar (Floating Header) — pure CSS blurred glass, transparent dark tint, zero chromatic glitch -->
+    <nav class="navbar glass-surface" id="navbar"
+         data-border-radius="18"
+         data-border-width="0"
+         data-background-opacity="0.35"
+         data-blur="0"
+         data-distortion-scale="0"
+         data-displace="0"
+         data-brightness="0"
+         data-saturation="1"
+         data-opacity="0">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-accent">C</span>hamara <span class="logo-accent">C</span>reation
+            </a>
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#gear" class="nav-link">Gear</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="nav-toggle glass-touch" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay glass-surface" id="mobile-nav-overlay" data-border-radius="0" data-border-width="0" data-background-opacity="0.2" data-distortion-scale="-120">
+        <ul class="mobile-nav-links">
+            <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+            <li><a href="#services" class="mobile-nav-link">Services</a></li>
+            <li><a href="#portfolio" class="mobile-nav-link">Portfolio</a></li>
+            <li><a href="#gear" class="mobile-nav-link">Gear</a></li>
+            <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+        </ul>
+    </div>
+    
+    <!-- Main Content -->
+    <main id="main-content">
+        
+        <!-- ==================== SECTION 1: HERO / LANDING ==================== -->
+        <section class="section hero-section" id="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-title-area">
+                        <div class="text-pressure-wrapper tp-wrapper-primary" id="tp-container-primary"></div>
+                        <div class="text-pressure-wrapper tp-wrapper-secondary" id="tp-container-secondary"></div>
+                    </div>
+                    <p class="hero-subtitle">Professional Photography, Cinematography & Live Broadcasts</p>
+                    <p class="hero-description">
+                        Crafting cinematic visual stories through premium photography, 
+                        videography, and live broadcast engineering. From concept to final cut, 
+                        every frame tells a story.
+                    </p>
+                    <p class="hero-extra-text" data-typing
+                       data-typing-text="Based in Sri Lanka, we bring a professional studio approach to every project — blending technical precision with creative passion. Whether it&apos;s a wedding, corporate event, or full-scale broadcast, we deliver broadcast-quality results that leave a lasting impression."
+                       data-typing-speed="40"
+                       data-typing-delay="100"></p>
+                    <div class="hero-cta-group">
+                        <a href="#portfolio" class="cta-button glass-surface" id="hero-cta" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-100" data-brightness="55">
+                            <span class="cta-text">Explore My Work</span>
+                            <span class="cta-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="m16 12-4-4-4 4"></path>
+                                    <path d="M12 16V8"></path>
+                                </svg>
+                            </span>
+                        </a>
+                        <a href="#contact" class="cta-button secondary glass-surface" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-100" data-brightness="55">
+                            <span class="cta-text">Get In Touch</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-glass-card glass-card">
+                        <div class="hero-visual-content">
+                            <div class="hero-stat">
+                                <span class="stat-number" data-count="500" data-suffix="+">0+</span>
+                                <span class="stat-label">Projects Completed</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="stat-number" data-count="10" data-suffix="+">0+</span>
+                                <span class="stat-label">Years Experience</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="stat-number" data-count="200" data-suffix="+">0+</span>
+                                <span class="stat-label">Happy Clients</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll-indicator">
+                        <span class="scroll-text">Scroll to Explore</span>
+                        <div class="scroll-arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 5v14"></path>
+                                <path d="m19 12-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== SECTION 2: SERVICES OVERVIEW ==================== -->
+        <section class="section services-section" id="services">
+            <div class="section-container">                    <div class="section-header">
+                        <span class="section-tag">What I Do</span>
+                        <h2 class="section-title" data-scroll-float>Premium <span class="text-accent">Services</span></h2>
+                        <p class="section-subtitle">Comprehensive visual production solutions tailored to elevate your brand and capture unforgettable moments — from cinematic storytelling to live broadcast engineering</p>
+                    </div>
+                    
+                    <div class="services-intro">
+                        <p data-typing
+                           data-typing-text="With over a decade of hands-on experience, we offer end-to-end production services that cover every aspect of visual media. Every service is backed by professional-grade equipment, industry-standard workflows, and a relentless commitment to quality."
+                           data-typing-speed="35"
+                           data-typing-delay="300"></p>
+                    </div>
+                
+                <div class="services-grid">
+                    <!-- Service Card 1: Videography & Photography -->
+                    <div class="service-card glass-card liquid-glass" data-service="video">
+                        <div class="service-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"></path>
+                                <rect x="2" y="6" width="14" height="12" rx="2"></rect>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Videography & Photography</h3>
+                        <p class="service-description">
+                            Cinematic shoots, creative movie edits, and comprehensive event documentation. 
+                            From wedding cinematography to corporate brand films, every project receives 
+                            the highest production value with meticulous attention to lighting, composition, 
+                            and color grading.
+                        </p>
+                        <ul class="service-features">
+                            <li>Cinematic Event Coverage (Multi-Camera)</li>
+                            <li>Creative Film Editing & Color Grading</li>
+                            <li>Brand Story & Corporate Production</li>
+                            <li>Aerial Drone Footage Integration</li>
+                            <li>Same-Day Edit & Highlight Reels</li>
+                        </ul>
+                        <div class="service-glow"></div>
+                        <div class="liquid-glass-shine" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Service Card 2: Live Streaming & Broadcast -->
+                    <div class="service-card featured glass-card liquid-glass" data-service="stream">
+                        <div class="service-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path>
+                                <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path>
+                                <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path>
+                                <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"></path>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Live Streaming & Broadcast</h3>
+                        <p class="service-description">
+                            Professional multi-camera setups with isolated (ISO) feeds, expert audio 
+                            mixing, and real-time graphics overlay. We deliver reliable, broadcast-quality 
+                            live streaming for events of any scale — from intimate ceremonies to large-scale 
+                            conferences with global audiences.
+                        </p>
+                        <ul class="service-features">
+                            <li>Multi-Camera Live Production (Up to 8 Cameras)</li>
+                            <li>ISO Recording & Instant Replay Feeds</li>
+                            <li>Professional Audio Mixing & Monitoring</li>
+                            <li>Real-time Graphics & Lower Thirds</li>
+                            <li>Cloud Streaming to YouTube, Facebook & Custom RTMP</li>
+                        </ul>
+                        <div class="service-glow"></div>
+                        <div class="liquid-glass-shine" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Service Card 3: Custom Graphics -->
+                    <div class="service-card glass-card liquid-glass" data-service="graphics">
+                        <div class="service-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Custom Graphics & Design</h3>
+                        <p class="service-description">
+                            Dynamic overlays, custom animated lower thirds, and broadcast-ready graphics 
+                            that elevate your content. From complete brand identity packages to real-time 
+                            on-screen visuals, we create professional visual elements that make your 
+                            production stand out.
+                        </p>
+                        <ul class="service-features">
+                            <li>Animated Lower Thirds & Title Cards</li>
+                            <li>Broadcast Overlays & Bug Logos</li>
+                            <li>Motion Graphics & Visual Effects</li>
+                            <li>Brand Identity & Logo Design</li>
+                            <li>Social Media Content Templates</li>
+                        </ul>
+                        <div class="service-glow"></div>
+                        <div class="liquid-glass-shine" aria-hidden="true"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== SECTION 3: PORTFOLIO & CASE STUDIES ==================== -->
+        <section class="section portfolio-section" id="portfolio">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">My Work</span>
+                    <h2 class="section-title" data-scroll-float>Featured <span class="text-accent">Projects</span></h2>
+                    <p class="section-subtitle">A showcase of cinematic productions, live broadcasts, and creative visual storytelling — each project crafted with meticulous attention to detail, from pre-production planning through final delivery</p>
+                    <p class="section-subtitle-sm" data-typing
+                       data-typing-text="Every project is a collaboration. We work closely with clients to understand their vision, then bring it to life with technical expertise and creative flair. Browse our recent work below."
+                       data-typing-speed="40"
+                       data-typing-delay="300"></p>
+                </div>
+                
+                <!-- Portfolio Filter Tabs -->
+                <div class="portfolio-filters">
+                    <button class="filter-btn active glass-surface" data-filter="all" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-60">All Work</button>
+                    <button class="filter-btn glass-surface" data-filter="wedding" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-60">Wedding</button>
+                    <button class="filter-btn glass-surface" data-filter="corporate" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-60">Corporate</button>
+                    <button class="filter-btn glass-surface" data-filter="event" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-60">Event</button>
+                </div>
+                
+                <!-- Portfolio Carousel -->
+                <div class="portfolio-carousel-wrapper">
+                    <div class="portfolio-carousel" id="portfolio-carousel">
+                        
+                        <!-- Portfolio Item 1 -->
+                        <div class="portfolio-item" data-category="video">
+                            <div class="portfolio-thumbnail glass-card">
+                                <div class="portfolio-placeholder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                    </svg>
+                                </div>
+                                <div class="portfolio-overlay">
+                                    <span class="portfolio-category">Videography</span>
+                                    <h4 class="portfolio-title">Annual Prize Giving Ceremony</h4>
+                                    <p class="portfolio-meta">Multi-camera live production with ISO recording</p>
+                                </div>
+                                <div class="liquid-glass-shine" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Portfolio Item 2 -->
+                        <div class="portfolio-item" data-category="live">
+                            <div class="portfolio-thumbnail glass-card">
+                                <div class="portfolio-placeholder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path>
+                                        <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path>
+                                        <circle cx="12" cy="12" r="2"></circle>
+                                        <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path>
+                                        <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"></path>
+                                    </svg>
+                                </div>
+                                <div class="portfolio-overlay">
+                                    <span class="portfolio-category">Live Broadcast</span>
+                                    <h4 class="portfolio-title">Corporate Live Stream</h4>
+                                    <p class="portfolio-meta">4K streaming with real-time graphics overlay</p>
+                                </div>
+                                <div class="liquid-glass-shine" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Portfolio Item 3 -->
+                        <div class="portfolio-item" data-category="photo">
+                            <div class="portfolio-thumbnail glass-card">
+                                <div class="portfolio-placeholder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
+                                        <circle cx="12" cy="13" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <div class="portfolio-overlay">
+                                    <span class="portfolio-category">Photography</span>
+                                    <h4 class="portfolio-title">Brand Campaign Shoot</h4>
+                                    <p class="portfolio-meta">High-end commercial photography series</p>
+                                </div>
+                                <div class="liquid-glass-shine" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Portfolio Item 4 -->
+                        <div class="portfolio-item" data-category="video">
+                            <div class="portfolio-thumbnail glass-card">
+                                <div class="portfolio-placeholder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                    </svg>
+                                </div>
+                                <div class="portfolio-overlay">
+                                    <span class="portfolio-category">Videography</span>
+                                    <h4 class="portfolio-title">Short Film Production</h4>
+                                    <p class="portfolio-meta">Cinematic storytelling with color grading</p>
+                                </div>
+                                <div class="liquid-glass-shine" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Portfolio Item 5 -->
+                        <div class="portfolio-item" data-category="live">
+                            <div class="portfolio-thumbnail glass-card">
+                                <div class="portfolio-placeholder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path>
+                                        <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path>
+                                        <circle cx="12" cy="12" r="2"></circle>
+                                        <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path>
+                                        <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"></path>
+                                    </svg>
+                                </div>
+                                <div class="portfolio-overlay">
+                                    <span class="portfolio-category">Live Broadcast</span>
+                                    <h4 class="portfolio-title">Sports Event Coverage</h4>
+                                    <p class="portfolio-meta">8-camera setup with instant replay</p>
+                                </div>
+                                <div class="liquid-glass-shine" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Portfolio Item 6 -->
+                        <div class="portfolio-item" data-category="photo">
+                            <div class="portfolio-thumbnail glass-card">
+                                <div class="portfolio-placeholder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
+                                        <circle cx="12" cy="13" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <div class="portfolio-overlay">
+                                    <span class="portfolio-category">Photography</span>
+                                    <h4 class="portfolio-title">Event Documentation</h4>
+                                    <p class="portfolio-meta">Full-day coverage with same-day edits</p>
+                                </div>
+                                <div class="liquid-glass-shine" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- Carousel Navigation -->
+                    <div class="carousel-nav">
+                        <button class="carousel-btn prev-btn glass-surface" id="carousel-prev" aria-label="Previous project" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-80">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6"></path>
+                            </svg>
+                        </button>
+                        <button class="carousel-btn next-btn glass-surface" id="carousel-next" aria-label="Next project" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-80">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- View All Projects Button -->
+                <div class="portfolio-cta">
+                    <a href="#" class="cta-button secondary glass-surface" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-100">
+                        <span class="cta-text">View All Projects</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== SECTION 4: GEAR & TECH SETUP ==================== -->
+        <section class="section gear-section" id="gear">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">Equipment</span>
+                    <h2 class="section-title" data-scroll-float>The <span class="text-accent">Tech</span> Setup</h2>
+                    <p class="section-subtitle">Professional-grade equipment powering every production — from cinema cameras to broadcast switchers, every piece of gear is carefully selected for reliability and performance</p>
+                    <p class="section-subtitle-sm" data-typing
+                       data-typing-text="We invest in industry-standard tools so that every frame, every sound, and every broadcast meets the highest professional standards. Hover over each item for details."
+                       data-typing-speed="40"
+                       data-typing-delay="300"></p>
+                </div>
+                
+                <!-- Gear Items List -->
+                <div class="gear-grid">
+                    
+                    <!-- Gear Item 1: Camera -->
+                    <div class="gear-item glass-card" data-gear="camera">
+                        <div class="gear-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
+                                <circle cx="12" cy="13" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="gear-item-info">
+                            <h4 class="gear-item-title">Professional Cinema Camera</h4>
+                            <p class="gear-item-desc">4K/60fps capable with cinema-grade sensor</p>
+                        </div>
+                        <div class="gear-item-tooltip">
+                            <p>High dynamic range sensor with 14+ stops of latitude. Perfect for both studio and field productions.</p>
+                        </div>
+                        <div class="liquid-glass-shine" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Gear Item 2: Switcher -->
+                    <div class="gear-item glass-card" data-gear="switcher">
+                        <div class="gear-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <path d="M8 21h8"></path>
+                                <path d="M12 17v4"></path>
+                                <circle cx="8" cy="10" r="1"></circle>
+                                <circle cx="12" cy="10" r="1"></circle>
+                                <circle cx="16" cy="10" r="1"></circle>
+                            </svg>
+                        </div>
+                        <div class="gear-item-info">
+                            <h4 class="gear-item-title">Video Switcher Console</h4>
+                            <p class="gear-item-desc">Blackmagic ATEM-style multi-input switching</p>
+                        </div>
+                        <div class="gear-item-tooltip">
+                            <p>12-input video switcher with built-in DVE, SuperSource, and 2D/3D graphics capabilities for live production.</p>
+                        </div>
+                        <div class="liquid-glass-shine" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Gear Item 3: Microphone -->
+                    <div class="gear-item glass-card" data-gear="mic">
+                        <div class="gear-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" x2="12" y1="19" y2="22"></line>
+                            </svg>
+                        </div>
+                        <div class="gear-item-info">
+                            <h4 class="gear-item-title">Professional Audio Mixer</h4>
+                            <p class="gear-item-desc">Multi-channel audio mixing & processing</p>
+                        </div>
+                        <div class="gear-item-tooltip">
+                            <p>16-channel digital mixer with effects processing, EQ, and compression for broadcast-quality audio.</p>
+                        </div>
+                        <div class="liquid-glass-shine" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Gear Item 4: Gimbal -->
+                    <div class="gear-item glass-card" data-gear="gimbal">
+                        <div class="gear-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                                <path d="M2 12h20"></path>
+                            </svg>
+                        </div>
+                        <div class="gear-item-info">
+                            <h4 class="gear-item-title">3-Axis Gimbal Stabilizer</h4>
+                            <p class="gear-item-desc">Smooth cinematic motion for any camera</p>
+                        </div>
+                        <div class="gear-item-tooltip">
+                            <p>Professional 3-axis stabilization with follow mode, vortex mode, and motion time-lapse capabilities.</p>
+                        </div>
+                        <div class="liquid-glass-shine" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Gear Item 5: Monitor -->
+                    <div class="gear-item glass-card" data-gear="monitor">
+                        <div class="gear-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <div class="gear-item-info">
+                            <h4 class="gear-item-title">Field Monitor</h4>
+                            <p class="gear-item-desc">High-brightness HDR monitoring</p>
+                        </div>
+                        <div class="gear-item-tooltip">
+                            <p>7-inch 1000-nit field monitor with focus peaking, false color, and LUT support for precise exposure control.</p>
+                        </div>
+                        <div class="liquid-glass-shine" aria-hidden="true"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== SECTION 5: FOOTER & CONTACT ==================== -->
+        <section class="section contact-section" id="contact">
+            <div class="section-container">
+                <div class="contact-content">
+                    
+                    <div class="contact-info">
+                        <span class="section-tag">Get In Touch</span>
+                        <h2 class="section-title">Let's Create <span class="text-accent">Together</span></h2>
+                        <p class="contact-description">
+                            Ready to bring your vision to life? Whether it's a cinematic production, 
+                            live event coverage, or creative photography, let's discuss your next project. 
+                            Every conversation starts with understanding your needs — no obligation, 
+                            just creative possibilities.
+                        </p>
+                        <p class="contact-extra-text" data-typing
+                           data-typing-text="Response time: I typically reply within 24 hours. For urgent inquiries about live events or broadcast productions, please call or WhatsApp directly."
+                           data-typing-speed="35"
+                           data-typing-delay="400"></p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <span class="contact-label">Location</span>
+                                    <span class="contact-value">Warakapola, Sri Lanka</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <span class="contact-label">Phone</span>
+                                    <a href="tel:+94777942818" class="contact-value glow-hover">+94 77 794 2818</a>
+                                    <a href="tel:+94714942818" class="contact-value glow-hover">+94 71 494 2818</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <span class="contact-label">Email</span>
+                                    <a href="mailto:chamaracreation.cpj@gmail.com" class="contact-value glow-hover">chamaracreation.cpj@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Links -->
+                        <div class="social-links">
+                            <a href="#" class="social-link glass-surface" aria-label="Facebook" target="_blank" rel="noopener noreferrer" data-border-radius="12" data-border-width="0.05" data-distortion-scale="-60">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link glass-surface" aria-label="Instagram" target="_blank" rel="noopener noreferrer" data-border-radius="12" data-border-width="0.05" data-distortion-scale="-60">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link glass-surface" aria-label="YouTube" target="_blank" rel="noopener noreferrer" data-border-radius="12" data-border-width="0.05" data-distortion-scale="-60">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
+                                    <path d="m10 15 5-3-5-3z"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link glass-surface" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer" data-border-radius="12" data-border-width="0.05" data-distortion-scale="-60">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-wrapper glass-card">
+                        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value="de1d73d4-1f48-4de2-a6d5-bce4cfe2bc80">
+                            <input type="hidden" name="subject" value="New Contact from Chamara Creation">
+                            <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" autocomplete="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" autocomplete="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="service" class="form-label">Service Interest</label>
+                                <select id="service" name="service" class="form-input form-select">
+                                    <option value="">Select a service...</option>
+                                    <option value="video">Videography & Photography</option>
+                                    <option value="live">Live Streaming & Broadcast</option>
+                                    <option value="graphics">Custom Graphics</option>
+                                    <option value="other">Other / Custom Package</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="form-label">Project Details</label>
+                                <textarea id="message" name="message" class="form-input form-textarea" placeholder="Tell me about your project..." rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-button glass-surface" data-border-radius="999" data-border-width="0.05" data-distortion-scale="-100">
+                                <span class="submit-text">Send Message</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <span class="logo-accent">C</span>hamara <span class="logo-accent">C</span>reation
+                    </div>
+                    <p class="footer-tagline">Professional Photography, Cinematography & Live Broadcasts — Sri Lanka</p>
+                    <div class="footer-divider"></div>
+                    <p class="footer-copyright">&copy; 2024 Chamara Creation. All rights reserved. | Warakapola, Sri Lanka</p>
+                    <p class="footer-tagline-sm">
+                        Crafting cinematic stories, one frame at a time.
+                    </p>
+                </div>
+            </footer>
+        </section>
+        
+    </main>
+    
+    <!-- ==================== POPUP MODAL ==================== -->
+    <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content" id="modal-content" data-lenis-prevent>
+            <button class="modal-close" id="modal-close" aria-label="Close details popup">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-body" id="modal-body">
+                <div class="modal-media" id="modal-media"></div>
+                <div class="modal-details" id="modal-details">
+                    <span class="modal-badge" id="modal-badge"></span>
+                    <h2 class="modal-title" id="modal-title"></h2>
+                    <p class="modal-description" id="modal-description"></p>
+                    <div class="modal-extra" id="modal-extra"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- TextPressure effect (mouse-reactive variable font distortion) -->
+    <script src="text-pressure.js"></script>
+    <!-- TextType typing animation (scroll-triggered typewriter) -->
+    <script src="text-type.js"></script>
+    <!-- CountUp animation (scroll-triggered number counter) -->
+    <script src="count-up.js"></script>
+    <!-- Main application script -->
+    <script src="script.js"></script>
+    
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+</body>
+</html>

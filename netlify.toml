@@ -1,0 +1,29 @@
+[build]
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Redirect all 404s to index.html (SPA fallback if needed)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Cache static assets aggressively
+[[headers]]
+  for = "assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Compress everything
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
